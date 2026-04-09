@@ -1,7 +1,7 @@
 [project]
-name = "cdiac-ff-data"
+name = "cdiac_ff_data"
 version = "0.1.0"
-description = "Add your description here"
+description = "Download CDIAC fossil fuel related CO2 emissions data and convert to primap2 format"
 readme = "README.md"
 license = "CC BY-NC-SA"
 license-files = ["LICENSE"]
@@ -13,6 +13,7 @@ dependencies = []
 dev = [
     "pytest>=9.0.3",
     "ruff>=0.15.9",
+    "towncrier>=25.8.0",
 ]
 
 [tool.ruff]
@@ -72,3 +73,62 @@ known-first-party = ["src"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
+
+[tool.towncrier]
+# The name of your Python package
+package = "cdiac_ff_data"
+# The path to your Python package.
+# If your package lives in 'src/myproject/', it must be 'src',
+# but if you don't keep your code in a 'src' dir, remove the
+# config option
+package_dir = "src"
+
+# directory for the changelog input files
+directory = "changelog"
+# Where you want your news files to come out, `NEWS.rst` is the default.
+# This can be .rst or .md, towncrier's default template works with both.
+filename = "changelog.md"
+
+title_format = "## CDIAC-ff_data {version} ({project_date})"
+underlines = ["", "", ""]
+issue_format = "[#{issue}](https://github.com/primap-community/CDIAC-ff_data/pulls/{issue})"
+
+  [[tool.towncrier.type]]
+  directory = "breaking"
+  name = "Breaking Changes"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "deprecation"
+  name = "Deprecations"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "feature"
+  name = "Features"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "improvement"
+  name = "Improvements"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "fix"
+  name = "Bug Fixes"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "docs"
+  name = "Improved Documentation"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "trivial"
+  name = "Trivial/Internal Changes"
+  showcontent = false
+
+  [[tool.towncrier.type]]
+  directory = "version"
+  name = "New Dataset Version"
+  showcontent = true
