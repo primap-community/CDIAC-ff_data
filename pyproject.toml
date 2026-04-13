@@ -17,8 +17,12 @@ dev = [
     "towncrier>=25.8.0",
     "pre-commit>=4.5.1",
     "pytest-cov>=7.1.0",
+    "liccheck>=0.9.2",
+    "setuptools>=80.0.0, <82.0.0", # <82 is needed because liccheck needs pkg_resources which was removed in 82
+    "pip>=26.0.1",
 ]
 
+## coverage
 [tool.pytest.ini_options]
 pythonpath = [
     "src"
@@ -38,6 +42,8 @@ exclude_also = [
     "if TYPE_CHECKING",
 ]
 
+
+## ruff
 [tool.ruff]
 src = ["src"]
 target-version = "py312"
@@ -96,6 +102,8 @@ known-first-party = ["src"]
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
 
+
+## Towncrier
 [tool.towncrier]
 # The name of your Python package
 package = "cdiac_ff_data"
@@ -154,3 +162,56 @@ issue_format = "[#{issue}](https://github.com/primap-community/CDIAC-ff_data/pul
   directory = "version"
   name = "New Dataset Version"
   showcontent = true
+
+## liccheck
+[tool.liccheck]
+# TODO: work on list. this is just copied from FAOSTAT_data repo for testing purposes
+authorized_licenses = [
+    "bsd",
+    "bsd license",
+    "BSD 3-Clause",
+    "CC0",
+    "apache",
+    "apache 2.0",
+    "apache software",
+    "apache software license",
+    "Apache License, Version 2.0",
+    "Historical Permission Notice and Disclaimer (HPND)",
+    "isc license",
+    "isc license (iscl)",
+    "gnu lgpl",
+    "lgpl with exceptions or zpl",
+    "LGPLv2+",
+    "GNU Lesser General Public License v2 (LGPLv2)",
+    "GNU Lesser General Public License v2 or later (LGPLv2+)",
+    "mit",
+    "mit license",
+    "Mozilla Public License 2.0 (MPL 2.0)",
+    "python software foundation",
+    "python software foundation license",
+    "zpl 2.1",
+    'CMU License (MIT-CMU)',
+    'GNU General Public License v3 (GPLv3)',
+    'GNU Lesser General Public License v3 (LGPLv3)',
+]
+
+unauthorized_licenses = [
+    "agpl",
+    "gnu agpl",
+    "gpl v3",
+    "gplv3",
+    "gpl v2",
+    "gplv2",
+    "gpl v1",
+    "gplv1",
+]
+# strategy_ini_file = "./liccheck.ini"
+level = "STANDARD"  # this is also the default
+# requirement_txt_file = "./requirements.txt" # ignored if dependencies or optional_dependencies are defined
+# reporting_txt_file = "path/to/reporting.txt file" # by default is None
+# no_deps = false
+dependencies = true # to load [project.dependencies]
+dependency-groups = ["dev"] # to load extras from [project.optional-dependencies]
+
+#[tool.liccheck.authorized_packages]
+#uuid = "1.30"
