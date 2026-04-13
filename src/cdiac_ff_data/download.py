@@ -2,12 +2,14 @@
 All functions to download data
 """
 
+
 def download_version(
-        version: str,
-)->None:
+    version: str,
+) -> str:
     """
-    Download given version. The config is read from the versions dict defined in
-    versions.py
+    Download given version.
+
+    The config is read from the versions dict defined in versions.py
 
     Parameters
     ----------
@@ -19,5 +21,6 @@ def download_version(
         None
 
     """
+    print(f"test {version}")
 
-    print('test')
+    return version

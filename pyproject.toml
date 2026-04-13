@@ -16,6 +16,26 @@ dev = [
     "ruff>=0.15.9",
     "towncrier>=25.8.0",
     "pre-commit>=4.5.1",
+    "pytest-cov>=7.1.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "src"
+]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 90  # adjust to what makes sense for the individual repository
+skip_empty = true
+show_missing = true
+# Regexes for lines to exclude from consideration in addition to the defaults
+exclude_also = [
+    # Don't complain about missing type checking code:
+    "if TYPE_CHECKING",
 ]
 
 [tool.ruff]

@@ -14,8 +14,9 @@ help: # display this help message
 
 # virtual environment make targets
 .PHONY: virtual_environment
-virtual_environment: # make virtual environment
+virtual_environment: # make virtual environment and install pre-commit hooks
 	uv venv
+	uv run pre-commit install
 
 update_virtual_environment: .venv # upgrade packages in the virtual environment but respect pinned versions in pyproject.toml
 	uv lock --upgrade
@@ -27,7 +28,7 @@ sync_virtual_environment: .venv # sync virtual environment to lock file
 
 # ruff make targets (add folders like scripts to ruff calls if necessary)
 .PHONY: ruff
-ruff: .venv # run ruff for formatting and fixes
+ruff: .venv # Run ruff for formatting and fixes
 	uv run ruff format src tests
 	uv run ruff check src tests --fix
 	uv run ruff format src tests
@@ -41,10 +42,18 @@ pre-commit: install-pre-commit # Run pre-commit hooks manually
 	uv run pre-commit
 
 # tests
-test: .venv
+.PHONY: test
+test: .venv # Run the tests
+	uv run pytest -ra -v --cov=src
+
+
+## TODO Tox for different python versions
 
 # coverage
 
 # docs (TODO if we use more than a readme file)
 
 # changelog
+.PHONY: changelog-draft
+changelog-draft:  # compile a draft of the next changelog
+	poetry run towncrier build --draft
