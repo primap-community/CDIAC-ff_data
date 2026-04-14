@@ -118,6 +118,6 @@ jobs:
 
       # run the license check
       - name: Run license check
-        run: uv run licheck
+        run: uv run liccheck
 
 # TODO: docs
