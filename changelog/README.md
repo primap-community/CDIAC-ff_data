@@ -2,14 +2,14 @@
 
 This directory contains "news fragments" for `towncrier`, i.e. short files that contain a small markdown-formatted bits of text that will be added to the CHANGELOG when it is next compiled using `towncrier`.
 
-The CHANGELOG will also be read by users, so the 
+The CHANGELOG will also be read by users, so the
 th description should be aimed to FAOSTAT data users instead of describing internal changes which are only relevant to developers. Merge requests in combination with our git history provides additional
 developer-centric information.
 
 Make sure to use phrases in the past tense and use punctuation, examples:
 
 ```
-Added new dataset release v2017 available under doi:test.1234 
+Added new dataset release v2017 available under doi:test.1234
 
 Improved documentation of sector mapping.
 ```
@@ -32,6 +32,6 @@ deprecate some existing functionality.
 
 If you are not sure what issue type to use, don't hesitate to ask in your MR.
 
-`towncrier` preserves multiple paragraphs and formatting (code blocks, lists, and so on), but for entries other than features it is usually better to stick to a single paragraph to keep it concise. 
+`towncrier` preserves multiple paragraphs and formatting (code blocks, lists, and so on), but for entries other than features it is usually better to stick to a single paragraph to keep it concise.
 
 You can also run `towncrier build --draft` to see the draft changelog that will be appended to [changelog.md]() on the next release.
