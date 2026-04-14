@@ -51,6 +51,11 @@ test: .venv # Run the tests
 
 # coverage
 
+# license check
+.PHONY: liccheck
+liccheck: .venv # Run the tests
+	uv run liccheck
+
 # docs (TODO if we use more than a readme file)
 
 # changelog
