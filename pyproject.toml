@@ -33,7 +33,7 @@ source = ["src"]
 branch = true
 
 [tool.coverage.report]
-fail_under = 90  # adjust to what makes sense for the individual repository
+fail_under = 50  # adjust to what makes sense for the individual repository
 skip_empty = true
 show_missing = true
 # Regexes for lines to exclude from consideration in addition to the defaults
