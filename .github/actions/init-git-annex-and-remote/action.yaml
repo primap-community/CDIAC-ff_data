@@ -1,0 +1,20 @@
+name: "init git-annex and remote"
+description: "initialize git-annex and enable a remote"
+
+inputs:
+  remote:
+    description: "Remote to enable (string)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    # set git parameters, initialize annex and enable remote
+    - name: get files
+      shell: bash
+      run: |
+        uv run git config user.email "test@test.com"
+        uv run git config user.name "github CI"
+        uv run git annex init
+        uv run git annex sync
+        uv run git annex enableremote ${{ inputs.remote }}

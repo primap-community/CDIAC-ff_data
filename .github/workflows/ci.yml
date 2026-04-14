@@ -1,0 +1,118 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  # run limited tests for draft PRs
+  test-pinned:
+    if: ${{ github.event.pull_request.draft }}
+    name: Tests pinned
+    runs-on: ubuntu-latest
+
+    steps:
+      # check out repository
+      - uses: actions/checkout@v6
+
+      # install python in the version pinned for the repository
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+
+      # install uv in a fixed version
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          # Install a specific version of uv.
+          version: "0.11.6"
+          enable-cache: true
+
+      # datalad and git annex
+#      - name: Setup git-annex
+#        uses: ./.github/actions/setup-git-annex
+#
+#      - name: Init git-annex and remote
+#        uses: ./.github/actions/init-git-annex-and-remote
+#        with:
+#          remote: <remote>
+
+      # run the tests
+      - name: Run tests
+        run: |
+          uv run pytest -ra -v --cov=src --cov-report=term-missing --cov-report=xml
+          uv run coverage report
+      # upload coverage report
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+
+  # run full tests
+  test-matrix:
+    if: ${{ !github.event.pull_request.draft }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ "ubuntu-latest" ]
+        python-version: [ "3.12" ]
+    name: CI full
+    runs-on: "${{ matrix.os }}"
+    steps:
+      # check out repository
+      - uses: actions/checkout@v6
+
+      # install uv in a fixed version
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          # Install a specific version of uv.
+          version: "0.11.6"
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+
+      # datalad and git annex
+      #      - name: Setup git-annex
+      #        uses: ./.github/actions/setup-git-annex
+      #
+      #      - name: Init git-annex and remote
+      #        uses: ./.github/actions/init-git-annex-and-remote
+      #        with:
+      #          remote: <remote>
+
+      # run the tests
+      - name: Run tests
+        run: |
+          uv run pytest -ra -v --cov=src --cov-report=term-missing --cov-report=xml
+          uv run coverage report
+      # upload coverage report
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+
+  # run license checks
+  liccheck:
+    if: ${{ !github.event.pull_request.draft }}
+    name: License check
+    runs-on: ubuntu-latest
+
+    steps:
+      # check out repository
+      - uses: actions/checkout@v6
+
+      # install python in the version pinned for the repository
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+
+      # install uv in a fixed version
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          # Install a specific version of uv.
+          version: "0.11.6"
+          enable-cache: true
+
+      # run the license check
+      - name: Run license check
+        run: uv run licheck
+
+# TODO: docs

@@ -1,0 +1,16 @@
+name: "get files with datalad"
+description: "get some necessary files using datalad"
+
+inputs:
+  files:
+    description: "Files to get (string)"
+    required: true
+
+
+runs:
+  using: "composite"
+  steps:
+    # get given large files using datalad
+    - name: get files
+      shell: bash
+      run: uv run datalad get ${{ inputs.files }}
