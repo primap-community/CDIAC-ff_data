@@ -3,7 +3,7 @@ name = "cdiac_ff_data"
 version = "0.1.0"
 description = "Download CDIAC fossil fuel related CO2 emissions data and convert to primap2 format"
 readme = "README.md"
-license = "CC BY-NC-SA"
+#license = "CC BY-NC-SA"
 license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [

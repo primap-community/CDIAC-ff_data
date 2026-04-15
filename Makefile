@@ -51,6 +51,7 @@ test: .venv # Run the tests
 
 # coverage
 
+
 # license check
 .PHONY: liccheck
 liccheck: .venv # Run the tests
@@ -58,7 +59,12 @@ liccheck: .venv # Run the tests
 
 # docs (TODO if we use more than a readme file)
 
+# install
+.PHONY: install
+install: .venv
+	uv run pip install -e .
+
 # changelog
 .PHONY: changelog-draft
-changelog-draft:  # compile a draft of the next changelog
-	poetry run towncrier build --draft
+changelog-draft: install # compile a draft of the next changelog
+	uv run towncrier build --draft

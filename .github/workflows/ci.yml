@@ -48,8 +48,17 @@ jobs:
           uv run pytest -ra -v --cov=src --cov-report=term-missing --cov-report=xml
           uv run coverage report
       # upload coverage report
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
 
   # run full tests
   test-matrix:
@@ -57,8 +66,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ "ubuntu-latest" ]
-        python-version: [ "3.12" ]
+        os: [ ubuntu-latest, windows-latest ]
+        python-version: [ "3.12", "3.14" ]
     name: CI full
     runs-on: "${{ matrix.os }}"
     steps:
@@ -90,7 +99,9 @@ jobs:
           uv run coverage report
       # upload coverage report
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4.2.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   # run license checks
   liccheck:
