@@ -19,12 +19,12 @@ Commands to manage the data are executed via the [pydoit](https://pydoit.org/) p
 
 ## DataLad datasets and how to use them
 
-This repository is a [DataLad](https://www.datalad.org/) dataset. It provides  
-fine-grained data access down to the level of individual files, and allows for  
-tracking future updates. In order to use this repository for data retrieval,  
-[DataLad](https://www.datalad.org/) is required. It is a free and open source  
-command line tool, available for all major operating systems, and builds upon  
-Git and [git-annex](https://git-annex.branchable.com/) to allow sharing,  
+This repository is a [DataLad](https://www.datalad.org/) dataset. It provides
+fine-grained data access down to the level of individual files, and allows for
+tracking future updates. In order to use this repository for data retrieval,
+[DataLad](https://www.datalad.org/) is required. It is a free and open source
+command line tool, available for all major operating systems, and builds upon
+Git and [git-annex](https://git-annex.branchable.com/) to allow sharing,
 synchronizing, and version controlling collections of large files.
 
 ## Installation
@@ -44,7 +44,7 @@ A DataLad dataset can be `cloned` by running
 datalad clone git@github.com:primap-community/CDIAC-ff_data.git
 ```
 Do not use git clone to download the repository! If you use plain git clone, DataLad will not have the necessary
-information to manage the dataset. Once the repository is cloned, it is like using a standard light-weight repository on your local machine.  
+information to manage the dataset. Once the repository is cloned, it is like using a standard light-weight repository on your local machine.
 At this point, the repository contains only small metadata and information on the identity of the files in the dataset, but not the actual *content* of the (sometimes large) files. The large files are just present as broken symlinks.
 
 
@@ -62,26 +62,26 @@ TODO: make example with actual file
 For example, the CSV file for the XXX release can be downloaded with
 
 ```sh
-datalad get extracted_data/XXX/YYY.csv 
+datalad get extracted_data/XXX/YYY.csv
 ```
 
 ### Stay up-to-date
 
-DataLad datasets can be updated. The command `datalad update` will *fetch*  
-updates and store them on a different branch to the one you're currently working on (by default  
+DataLad datasets can be updated. The command `datalad update` will *fetch*
+updates and store them on a different branch to the one you're currently working on (by default
 `remotes/origin/master`). Running
 
-```  
-datalad update --merge  
-```  
+```
+datalad update --merge
+```
 
 will *fetch* available updates and integrate them in one go.
 
 ### Find out what has been done
 
-DataLad datasets contain their history in the `git log`.  By running `git  
-log` (or a tool that displays Git history) in the dataset or on specific  
-files, you can find out what has been done to the dataset or to individual  
+DataLad datasets contain their history in the `git log`.  By running `git
+log` (or a tool that displays Git history) in the dataset or on specific
+files, you can find out what has been done to the dataset or to individual
 files by whom, and when.
 
 ## Contributing
@@ -180,12 +180,12 @@ TODO: adapt to final code structure, e.g. where are the datalad functions
 - `src/cdiac_ff_data/`
     - `config/`
       - `version.py` contains a dictionary that contains configuration and metadata for each release. This file has to be updated when [adding a new version](#a-namenewversiona-how-to-add-a-new-version)
-    - `download.py` functions to download files for a given version. 
+    - `download.py` functions to download files for a given version.
     - `helper.py` helper functions if needed
     - `read_process.py` reads the data for a given version and saves to [PRIMAP2](https://primap2.readthedocs.io/en/stable/) native and interchange format.
 - `tests\` contains subfolders with test functions
 - `dodo.py` defines pydoit commands.
-- `Makefile` to make virtual environment and run development tools 
+- `Makefile` to make virtual environment and run development tools
 - `LICENSE` contains the license information
 - `pyproject.toml` configuration file
 - `README.md` you're reding it
@@ -230,7 +230,7 @@ There always issues open regarding coding, some of them easy to resolve, some ha
 Contributing is ouf course not limited to the categories above. If you have ideas for improvements just open an issue or a discussion page to discuss your idea with the community.
 
 ### Technical HowTo for contributors
-TODO adapt for final storage location. Account needed for contributing. Gin info can be removed. 
+TODO adapt for final storage location. Account needed for contributing. Gin info can be removed.
 As we have a datalad repository using github and gin, the process of contributing code and data is a bit different from pure git repositories. As the data is only stored on gin, the gin repository is the source to start
 from. As gin currently has a problem with forks (the annexed data is not
 forked) we have to use branches for development and, thus, to contribute you
@@ -244,4 +244,4 @@ For that you first need to store your public ssh key on the gin server
 Once you have everything set up you can create a new branch branch and work there.
 When you're done, create a pull request to integrate your work into the main
 branch. This should be done first on github to allow for discussions and review (gin servers don't have the same review features). Afterwards the changes
-can be actually merged on gin (so that the annex is merged properly too). 
+can be actually merged on gin (so that the annex is merged properly too).
