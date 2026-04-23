@@ -37,17 +37,17 @@ jobs:
         id: package-version
         run: echo "version=$(uv version --short)" >> $GITHUB_OUTPUT
 
-      # generate changelog
-      - name: generate changelog
-        run: |
-          uv run towncrier build
-
       # Compare the versions. Workflow will fail if version is not newer than present version
       - uses: jackbilestech/semver-compare@1.0.4
         with:
           head: steps.package-version.outputs.version
-          base: steps.lastßtag.outputs.tag
+          base: steps.last-tag.outputs.tag
           operator: '>'
+
+      # generate changelog
+      - name: generate changelog
+        run: |
+          uv run towncrier build --version=steps.package-version.outputs.version
 
       # Create Release if they differ
       - name: Create Draft GitHub Release

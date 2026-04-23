@@ -1,5 +1,5 @@
 ## Description
-<!--- Describe the content of the pull rwequest. A short desciption of the main features (as bullet points) suffices -->
+<!--- Describe the content of the pull request. A short desciption of the main features (as bullet points) suffices -->
 
 ## Checklist
 
@@ -11,4 +11,4 @@ Please confirm that this pull request has done the following:
 
 <!--- Make sure to pull the main branch after the merge and push using datalad to update the siblings which store the data as well. -->
 
-<!--- Please convert the pr to a draft if it is a work in progress. This will limit the time used in the CI as tests will only run on the pinned python version and ubuntu-latest. Docs will not be built for a draft. -->
+<!--- Please create the pr to a draft if it is a work in progress. This will limit the time used in the CI as tests will only run on the pinned python version and ubuntu-latest. Docs will not be built for a draft. -->
