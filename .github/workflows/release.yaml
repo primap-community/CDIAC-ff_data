@@ -40,8 +40,8 @@ jobs:
       # Compare the versions. Workflow will fail if version is not newer than present version
       - uses: jackbilestech/semver-compare@1.0.4
         with:
-          head: steps.package-version.outputs.version
-          base: steps.last-tag.outputs.tag
+          head: ${{ steps.package-version.outputs.version }}
+          base: ${{ steps.last-tag.outputs.tag }}
           operator: '>'
 
       # generate changelog
@@ -51,7 +51,6 @@ jobs:
 
       # Create Release if they differ
       - name: Create Draft GitHub Release
-        if: steps.package-version.outputs.version != steps.last-tag.outputs.tag
         uses: softprops/action-gh-release@v2
         with:
           body_path: ".github/release_template.md"
