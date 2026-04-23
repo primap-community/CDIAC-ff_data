@@ -1,0 +1,59 @@
+name: Auto release for new version
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # checkout repository
+      - name: checkout
+        uses: actions/checkout@v6
+
+      # install python in the version pinned for the repository
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+
+      # install uv in a fixed version
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          # Install a specific version of uv.
+          version: "0.11.6"
+          enable-cache: true
+
+      # Get the latest tag from GitHub
+      - name: Get Latest Tag
+        id: last-tag
+        run: |
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "tag=${latest_tag:1}" >> $GITHUB_OUTPUT
+
+      # Get current version from package.json
+      - name: Get Current Version
+        id: package-version
+        run: echo "version=$(uv version --short)" >> $GITHUB_OUTPUT
+
+      # generate changelog
+      - name: generate changelog
+        run: |
+          uv run towncrier build
+
+      # Compare the versions. Workflow will fail if version is not newer than present version
+      - uses: jackbilestech/semver-compare@1.0.4
+        with:
+          head: steps.package-version.outputs.version
+          base: steps.lastßtag.outputs.tag
+          operator: '>'
+
+      # Create Release if they differ
+      - name: Create Draft GitHub Release
+        if: steps.package-version.outputs.version != steps.last-tag.outputs.tag
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: ".github/release_template.md"
+          draft: true
+          tag_name: v${{ steps.package-version.outputs.version }}
