@@ -1,6 +1,6 @@
 [project]
 name = "cdiac_ff_data"
-version = "0.1.0"
+version = "0.1.1"
 description = "Download CDIAC fossil fuel related CO2 emissions data and convert to primap2 format"
 readme = "README.md"
 #license = "CC BY-NC-SA"
