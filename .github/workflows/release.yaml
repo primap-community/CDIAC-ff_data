@@ -48,6 +48,7 @@ jobs:
       - name: generate changelog
         run: |
           uv run towncrier build --version=steps.package-version.outputs.version --yes
+          git commit -a -m "create changelog for version ${{ steps.package-version.outputs.version }}"
 
       # Create Release if they differ
       - name: Create Draft GitHub Release
@@ -56,3 +57,4 @@ jobs:
           body_path: ".github/release_template.md"
           draft: true
           tag_name: v${{ steps.package-version.outputs.version }}
+          files: ../../changelog.md
