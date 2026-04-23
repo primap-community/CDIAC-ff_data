@@ -12,3 +12,14 @@ Chnagelog entries are added through small files in the `chnagelog` folder. The `
 -->
 
 <!-- towncrier release notes start -->
+
+## CDIAC-ff_data steps.package-version.outputs.version (2026-04-23)
+
+### Bug Fixes
+
+- Improved release workflow to automatically delete old news files and save the current version of the changelog with the release. ([#7](https://github.com/primap-community/CDIAC-ff_data/pulls/7))
+- * Fixed github calls and config in release.yaml ([#8](https://github.com/primap-community/CDIAC-ff_data/pulls/8))
+
+### Improved Documentation
+
+- Updated README to reflect the release process. ([#7](https://github.com/primap-community/CDIAC-ff_data/pulls/7))
