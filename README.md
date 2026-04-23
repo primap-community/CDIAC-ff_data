@@ -1,5 +1,14 @@
 # CDIAC Global, Regional, and National Fossil-Fuel CO2 Emissions Dataset
 
+[![GitHub Release](https://img.shields.io/github/release/primap-community/CDIAC-ff_data.svg)]()
+[![CI](https://github.com/primap-community/CDIAC-ff_data/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/primap-community/CDIAC-ff_data/actions/workflows/ci.yaml)
+[![Coverage](https://codecov.io/gh/primap-community/CDIAC-ff_data/branch/main/graph/badge.svg)](https://codecov.io/gh/primap-community/CDIAC-ff_data)
+
+
+[![Licence](https://img.shields.io/github/license/primap-community/CDIAC-ff_data.svg)](https://github.com/primap-community/CDIAC-ff_data/blob/main/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/primap-community/CDIAC-ff_data.svg)](https://github.com/primap-community/CDIAC-ff_data/commits/main)
+[![Contributors](https://img.shields.io/github/contributors/primap-community/CDIAC-ff_data.svg)](https://github.com/primap-community/CDIAC-ff_data/graphs/contributors)
+
 This repository downloads the CDIAC fossil fuel related CO2 emissions dataset from figshare or zenodo depending on version.
 The dataset is converted to the PRIMAP2 format and provided in both the csv-based interchange format and the netCDF-based native primap2 format. We aim to provide past current and future versions of the dataset within this repository.
 
@@ -33,6 +42,26 @@ Note that for [simply downloading the dataset,](#1-easy-access) uv is not requir
 
 - Install datalad according to the [DataLad handbook](https://handbook.datalad.org/en/latest/intro/installation.html). We recommend installing datalad globally as managing it from within the venv is not something we do for you.
 - Install [uv](https://www.python.org). uv manages the python version and all dependencies in the repository, thus no further individual installation steps are needed.
+
+## Help
+
+Show all doit commands
+
+```sh
+doit help
+```
+
+See a list with possible doit commands specific to this repository
+
+```sh
+doit list
+```
+
+Get help on a specific command
+
+```
+doit help <command>
+```
 
 ## Getting Started
 
@@ -84,17 +113,18 @@ log` (or a tool that displays Git history) in the dataset or on specific
 files, you can find out what has been done to the dataset or to individual
 files by whom, and when.
 
-## Contributing
+## <a name="advanced"></a> Advanced usage
 
-For those who wish to contribute to the repository, below we go through the key commands you will need to use. While the actual data handling functionality is run using pydoit the repository management uses make so we can install pydoit in the virtual environment.
+If you don't have access to a data storage sibling or want to modify processing steps you can also download and process the data yourself using the following steps.
 
-#### Set up the virtual environment with uv
+### Set up the virtual environment with uv
 
+While the actual data handling functionality is run using `pydoit` the repository management uses `make` so we can install `pydoit` in the virtual environment.
 ```sh
 make virtual_environment
 ```
 
-#### <a name="download"></a>Download the version from the command line.
+### <a name="download"></a>Download the version from the command line.
 
 This will download all files from Zenodo as they are for a specific version (note this version must already be in `versions.py`, if you want to add a new version, see the section on adding a new version below).
 
@@ -109,10 +139,9 @@ For example, the following command will download all files from XXX for the YYY 
 doit download_version version=YYY
 ```
 
-#### <a name="convert"></a> Read the version from the command line.
+### <a name="convert"></a>Read the version from the command line.
 
-Reading data refers to the conversion of the downloaded files into CSV and NetCDF format. Similarly to the download
-command, the data is read for a specific version with
+Reading data refers to the conversion of the downloaded files into CSV and NetCDF format. Similarly to the download command, the data is read for a specific version with
 
 ```sh
 doit read_version version=<YYY>
@@ -124,7 +153,11 @@ For example, the following command will read the YYY release
 doit read_version version=YYY
 ```
 
-## <a name="newversion"></a> How to add a new version
+## Contributing
+
+For those who wish to contribute to the repository, below we explain the main tools and concepts we use. The following assumes you have the virtual environment set up already.
+
+### <a name="newversion"></a> How to add a new version
 
 To add a new version go to `src/cdiac_ff_data/config/versions.py` and create a new value in the
 `versions` dictionary. Fill all the required information similar to the previous entries.
@@ -149,29 +182,43 @@ versions = {
 }
 ````
 
-Then run the two commands, `download_version` and `read_version` as described in [Contributing](#contributing) for your newly added version.
+Then run the two commands, `download_version` and `read_version` as described in [Advanced usage](#advanced) for your newly added version.
 
-## Help
+### Issues
 
-Show all doit commands
+There always issues open regarding coding, some of them easy to resolve, some harder.
 
-```sh
-doit help
+### Other contributions
+
+Contributing is ouf course not limited to the categories above. If you have ideas for improvements just open an issue or a discussion page to discuss your idea with the community.
+
+
+
+### Development tools and process
+Here we describe the tools and processes we use to develop the package.
+
+As we have a datalad repository using github and a S3 based data storage, the process of contributing code and data is a bit different from pure git repositories. All development including branching, merging, releases etc. is done on github as for a normal repository. The only important difference you have to keep in mind is that all commits which include data have to be done using datalad, so data files are stored in the git-annex and linked in their proper location. pre-commit should prevent you from accidentally adding large files to git.
+
+To be able to push files to the data storage you need an account. Please contact the maintainers.
+
+For more information on the datalad setup, please see the section on [datalad](datalad_siblings)
+
+#### Code formatting and linting
+To check formatting and code we use `ruff`. It's run automatically on commit but you can also run it manually using
+```
+make ruff
 ```
 
-See a list with possible doit commands specific to this repository
+#### Testing
+For testing we use `pytest` which is run automatically in the CI for every pull request. More on the below in the Section [Pull Requests](#prs).
 
-```sh
-doit list
+You can run tests manually via
 ```
-
-Get help on a specific command
-
+make test
 ```
-doit help <command>
-```
+or using your local development tools.
 
-### Repository structure
+#### Repository structure
 TODO: adapt to final code structure, e.g. where are the datalad functions
 - `.datalad/` contains config file for datalad
 - `downloaded_data/` contains original data from Zenodo.
@@ -193,55 +240,55 @@ TODO: adapt to final code structure, e.g. where are the datalad functions
 
 We omit the git files and folders here as they should be known to all possible contributors.
 
-TODO: add info on ruff etc?
 
-### Make sure to correctly set up the DataLad siblings
+#### <a name="datalad_siblings"></a>Make sure to correctly set up the DataLad siblings
 
 Git repositories can configure clones of a dataset as remotes in order to fetch, pull, or push from and to them. A `datalad sibling` is the equivalent of a git clone that is configured as a remote.
 
-**Query information** about about all known siblings with
+**Query information** about all known siblings with
 
 ```sh
 datalad siblings
 ```
-TODO: adapt to final storage location
 
-**Add a sibling** to allow pushing to github
+You should already have a github sibling set up and the public remote which is download only for the data.
+
+TODO: how to set up the S3 remote
+
+**Add a sibling** to allow pushing data to our data storage
 
 ```sh
-datalad siblings add --dataset . --name <name> --url git@github.com:XXX
+datalad siblings add --dataset . --name <name> --url
 ```
 
-SSH-access is needed to run this command. Note that `name` can be freely chosen (we tend to just use "github" for GitHub siblings)
+SSH-access is needed to run this command. Note that `name` can be freely chosen
+
+TODO: setup publish-depends
 
 **Push to the github repository**
 
 ```
-datalad push --to <name>
+datalad push --to github
 ```
 
-where `name` should match the name you used above
-### Issues
+This should now push to both repositories.
 
-There always issues open regarding coding, some of them easy to resolve, some harder.
 
-### Your ideas
 
-Contributing is ouf course not limited to the categories above. If you have ideas for improvements just open an issue or a discussion page to discuss your idea with the community.
-
-### Technical HowTo for contributors
-TODO adapt for final storage location. Account needed for contributing. Gin info can be removed.
-As we have a datalad repository using github and gin, the process of contributing code and data is a bit different from pure git repositories. As the data is only stored on gin, the gin repository is the source to start
-from. As gin currently has a problem with forks (the annexed data is not
-forked) we have to use branches for development and, thus, to contribute you
-first need to contact the maintainers to get write access to the gin repository.
-You have to clone the repository using ssh to be able to push to it.
-For that you first need to store your public ssh key on the gin server
-(settings -> SSH Keys).
-
-### Instructions for merge requests
-
-Once you have everything set up you can create a new branch branch and work there.
+### <a name="prs"></a>Instructions for pull requests
+Once you have everything set up you can create a new branch and work there.
 When you're done, create a pull request to integrate your work into the main
-branch. This should be done first on github to allow for discussions and review (gin servers don't have the same review features). Afterwards the changes
-can be actually merged on gin (so that the annex is merged properly too).
+branch. Please create the pr as a draft first because this will save computing time as the tests are only run on ubuntu latest with the pinned python version of this project instead of a matrix of python versions and operating systems. Once the pr is marked as ready for review the full CI will run.
+
+
+
+### versioning
+We manually update versions. the version number is store in `pyproject.toml`. It can either be updated manually or through
+
+```
+uv version --bump [major|minor|patch]
+```
+
+We only update the major version when a major new or breaking functionality is added or a major or breaking data format change is introduced. Minor version are updated for new input data versions and smaller functionality changes. The patch version is update for data corrections, bugfixes etc.
+
+Once a pr with a new version number is merged a release is created automatically.
