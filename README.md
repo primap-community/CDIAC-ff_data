@@ -283,7 +283,7 @@ branch. Please create the pr as a draft first because this will save computing t
 
 
 ### versioning
-We manually update versions. the version number is store in `pyproject.toml`. It can either be updated manually or through
+We manually update versions. The version number is stored in `pyproject.toml`. It can either be updated manually or through
 
 ```
 uv version --bump [major|minor|patch]
@@ -291,4 +291,4 @@ uv version --bump [major|minor|patch]
 
 We only update the major version when a major new or breaking functionality is added or a major or breaking data format change is introduced. Minor version are updated for new input data versions and smaller functionality changes. The patch version is update for data corrections, bugfixes etc.
 
-Once a pr with a new version number is merged a release is created automatically.
+Once a pr with a new version number is merged a draft release is created automatically. After filling a short description and the most important changes the release can be published.
