@@ -12,5 +12,3 @@ Chnagelog entries are added through small files in the `chnagelog` folder. The `
 -->
 
 <!-- towncrier release notes start -->
-
-
