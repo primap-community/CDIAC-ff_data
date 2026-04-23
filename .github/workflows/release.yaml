@@ -55,9 +55,9 @@ jobs:
 
       # Create Release if they differ
       - name: Create Draft GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           body_path: ".github/release_template.md"
           draft: true
           tag_name: v${{ steps.package-version.outputs.version }}
-          files: ../../changelog.md
+          files: changelog.md
