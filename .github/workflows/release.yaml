@@ -47,7 +47,7 @@ jobs:
       # generate changelog
       - name: generate changelog
         run: |
-          uv run towncrier build --version=steps.package-version.outputs.version
+          uv run towncrier build --version=steps.package-version.outputs.version --yes
 
       # Create Release if they differ
       - name: Create Draft GitHub Release
