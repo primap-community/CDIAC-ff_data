@@ -13,6 +13,14 @@ Chnagelog entries are added through small files in the `chnagelog` folder. The `
 
 <!-- towncrier release notes start -->
 
+## CDIAC-ff_data 0.1.2 (2026-04-23)
+
+### Bug Fixes
+
+- switched to latest version of `gh-release` action and corrected changelog filename ([#9](https://github.com/primap-community/CDIAC-ff_data/pulls/9))
+- Fix passing version number to towncrier ([#10](https://github.com/primap-community/CDIAC-ff_data/pulls/10))
+
+
 ## CDIAC-ff_data v0.1.1 (2026-04-23)
 
 ### Bug Fixes
