@@ -166,18 +166,20 @@ For example, the value for key `"20260303"` in the `versions` dictionary describ
 ````python
 versions = {
     "260303": {
-        'date': '03-Mar-2026',
-        'ver_str_long': 'version 20260303',
-        'ver_str_short': '260303',
+        "date": "03-Mar-2026",
+        "ver_str_long": "version 20260303",
+        "ver_str_short": "260303",
         "folder": "260303",
-        'references': 'https://doi.org/10.6084/m9.figshare.31449082',
-        'title': 'Global, Regional, and National Fossil-Fuel CO2 Emissions: 1750-2022 CDIAC-FF',
-        'institution': "Research Institute for Environment, Energy, and Economics, Appalachian State University",
-        'filter_keep': {},
-        'filter_remove': {},
-        'contact': "mail@johannes-guetschow.de",
-        'comment': ("Published by M. Erb and G. Marland, converted to PRIMAP2 format by "
-                    "Johannes Gütschow"),
+        "references": "https://doi.org/10.6084/m9.figshare.31449082",
+        "title": "Global, Regional, and National Fossil-Fuel CO2 Emissions: 1750-2022 CDIAC-FF",
+        "institution": "Research Institute for Environment, Energy, and Economics, Appalachian State University",
+        "filter_keep": {},
+        "filter_remove": {},
+        "contact": "mail@johannes-guetschow.de",
+        "comment": (
+            "Published by M. Erb and G. Marland, converted to PRIMAP2 format by "
+            "Johannes Gütschow"
+        ),
     },
 }
 ````
